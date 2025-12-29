@@ -1,8 +1,9 @@
 resources:
   pipelines:
     clickstream_pipeline:
-      continous: true
       name: "[dev] Clickstream Pipeline"
+      # Corrected spelling: continuous
+      continuous: true 
       catalog: ${var.catalog}
       target: ${var.schema}
       serverless: true
@@ -12,4 +13,5 @@ resources:
             path: ../src/my_transformation.py
 
       configuration:
+        # These variables are passed into your Spark session
         pipeline.landing_path: ${var.landing_path}

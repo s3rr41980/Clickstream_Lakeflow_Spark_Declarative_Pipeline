@@ -18,8 +18,7 @@ targets:
   dev:
     mode: development
     default: true
-    workspace:
-      host: https://adb-7405605785460283.3.azuredatabricks.net
+   
     variables:
       catalog: databricks_clickstream_dev
       schema: clickstream_dlt

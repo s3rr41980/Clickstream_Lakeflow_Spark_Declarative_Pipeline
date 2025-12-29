@@ -1,0 +1,28 @@
+name: "Deploy to Databricks"
+
+# Trigger the workflow on every push to the main branch
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: "Bundle Deploy"
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Check out the code from your repo
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # 2. Install the Databricks CLI on the GitHub runner
+      - name: Install Databricks CLI
+        uses: databricks/setup-cli@v0.2
+
+      # 3. Deploy the bundle using your secrets
+      - name: Bundle Deploy
+        run: databricks bundle deploy
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
