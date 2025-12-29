@@ -3,8 +3,8 @@ name: "Deploy to Databricks"
 on:
   push:
     branches:
-      - main
-      - 'feature/*'
+      - main      # Triggers Prod + Dev
+      - 'feature/*' # Triggers Dev only (e.g., feature/add-logging)
   workflow_dispatch: 
 
 jobs:
@@ -19,12 +19,22 @@ jobs:
       - name: Install Databricks CLI
         uses: databricks/setup-cli@v0.2
 
+      # 1. ALWAYS deploy to Dev (Tests your code in the dev environment first)
       - name: Deploy to Dev
         run: databricks bundle deploy -t dev
         env:
           DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
           DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
 
+      # 2. ONLY deploy to Prod if we are on the 'main' branch
+      - name: Deploy to Prod
+        if: github.ref == 'refs/heads/main'
+        run: databricks bundle deploy -t prod
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+
+      # 3. Automatically run the Dev pipeline to verify the logic
       - name: Run Dev Pipeline
         run: databricks bundle run clickstream_pipeline -t dev
         env:

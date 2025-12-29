@@ -18,8 +18,14 @@ targets:
   dev:
     mode: development
     default: true
-   
     variables:
       catalog: databricks_clickstream_dev
       schema: clickstream_dlt
       landing_path: "abfss://raw@azuredarabricksstorage.dfs.core.windows.net/bronze_events_landing/"
+
+prod:
+    mode: production
+    variables:
+      catalog: databricks_clickstream_prod # Your production catalog
+      schema: clickstream_dlt
+      landing_path: "abfss://raw@storage.dfs.core.windows.net/bronze_prod/"
