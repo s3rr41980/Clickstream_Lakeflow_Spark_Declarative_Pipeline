@@ -1,0 +1,32 @@
+name: "Deploy to Databricks"
+
+on:
+  push:
+    branches:
+      - main
+      - 'feature/*'
+  workflow_dispatch: 
+
+jobs:
+  deploy:
+    name: "Bundle Deploy & Run"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install Databricks CLI
+        uses: databricks/setup-cli@v0.2
+
+      - name: Deploy to Dev
+        run: databricks bundle deploy -t dev
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+
+      - name: Run Dev Pipeline
+        run: databricks bundle run clickstream_pipeline -t dev
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
