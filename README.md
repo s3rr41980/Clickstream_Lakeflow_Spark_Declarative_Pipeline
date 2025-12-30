@@ -45,7 +45,15 @@ The entire environment is managed via **Databricks Asset Bundles (DABs)**, allow
 | `src/` | **Source Code:** Core PySpark logic utilizing `@dp` decorators and quality expectations. |
 | `.github/workflows/` | **CI/CD:** Automated deployment pipelines via GitHub Actions. |
 
+---
 
+## 🔐 Data Governance & RBAC
+This project implements a strict security model using **Unity Catalog** and **Entra ID Groups** to ensure the Principle of Least Privilege.
+
+| Principal | Level | Permission | Reason |
+| :--- | :--- | :--- | :--- |
+| `databricks-project-admins` | Catalog | **OWNER** | Full administrative control over the data lifecycle. |
+| `databricks-project-engineers`| Schema | **USE & SELECT**| Restricted access to the `clickstream_dlt` production schema only. |
 
 ---
 
@@ -75,7 +83,7 @@ The entire environment is managed via **Databricks Asset Bundles (DABs)**, allow
 
 ## Skills Demonstrated
 * **Languages:** Python (PySpark), SQL, YAML.
-* **Data Architecture:** Medallion Architecture, SCD Type 2, Fact/Dimension Modeling.
+* **Data Architecture:** Medallion Architecture, SCD Type 2, Fact/Dimension Modeling, Data Governance.
 * **DevOps:** Infrastructure as Code (DABs), CI/CD (GitHub Actions).
 * **Specialized:** Liquid Clustering, Auto Loader, Data Quality Expectations, Unity Catalog.
 
