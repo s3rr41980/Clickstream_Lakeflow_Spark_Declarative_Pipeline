@@ -47,7 +47,7 @@ The entire environment is managed via **Databricks Asset Bundles (DABs)**, allow
 
 ---
 
-## 🔐 Data Governance & RBAC
+## Data Governance & RBAC
 This project implements a strict security model using **Unity Catalog** and **Entra ID Groups** to ensure the Principle of Least Privilege.
 
 | Principal | Level | Permission | Reason |
