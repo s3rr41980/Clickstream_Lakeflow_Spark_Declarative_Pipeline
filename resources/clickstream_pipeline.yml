@@ -4,6 +4,7 @@ resources:
       name: "[dev] Clickstream Pipeline"
       catalog: ${var.catalog}
       target: ${var.schema}
+      continuous: true
       serverless: true
 
       libraries:
