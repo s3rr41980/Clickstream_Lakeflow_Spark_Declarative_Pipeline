@@ -1,27 +1,39 @@
-bundle:
-  name: clickstream_dlt_pipeline
+# =============================================================
+# INFRASTRUCTURE AS CODE (IaC) BUNDLE CONFIGURATION
+# =============================================================
 
+bundle:
+  name: clickstream_lakeflow_pipeline
+
+# Includes external resource definitions to maintain modularity
 include:
   - resources/*.yml
 
+# --- VARIABLE DEFINITIONS ---
+# Global variables used to parameterize the pipeline for multi-environment support.
 variables:
   catalog:
-    description: The Unity Catalog catalog name.
+    description: "The Unity Catalog destination for all managed tables."
     default: databricks_clickstream_dev
   schema:
-    description: The Unity Catalog schema (target) name.
+    description: "The target database schema for the Medallion architecture."
     default: clickstream_dlt
   landing_path:
-    description: The storage path for raw bronze data.
+    description: "The ADLS Gen2 URI for raw data ingestion."
 
+# --- DEPLOYMENT TARGETS ---
+# Environment-specific configurations for the deployment lifecycle.
 targets:
   dev:
+    # Development mode enables asset prefixing and iterative deployment optimizations.
     mode: development
     default: true
     workspace:
       host: https://adb-7405605785460283.3.azuredatabricks.net
+    
+    # Target-specific variable overrides
     variables:
       catalog: databricks_clickstream_dev
       schema: clickstream_dlt
-      # Ensure this path is reachable by your Databricks workspace
+      # URI for the raw data landing zone (Bronze Ingestion Source)
       landing_path: "abfss://raw@azuredarabricksstorage.dfs.core.windows.net/bronze_events_landing/"
