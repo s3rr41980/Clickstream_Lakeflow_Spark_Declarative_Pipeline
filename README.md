@@ -1,15 +1,15 @@
-# 🚀 Lakeflow Clickstream Pipeline: Declarative Data Engineering
+# Lakeflow Clickstream Pipeline: Declarative Data Engineering
 
 [![Databricks](https://img.shields.io/badge/Platform-Databricks-orange.svg)](https://www.databricks.com/)
 [![Spark](https://img.shields.io/badge/Framework-Apache_Spark_4.1-red.svg)](https://spark.apache.org/)
 [![Lakeflow](https://img.shields.io/badge/Engine-Lakeflow_SDP-blue.svg)](https://www.databricks.com/product/lakeflow)
 
-## 📖 Executive Summary
+## Executive Summary
 This repository contains a production-ready **Lakeflow Spark Declarative Pipeline (SDP)** designed to process real-time clickstream data. Moving beyond traditional procedural ETL, this project leverages **Declarative Engineering** to define the "desired state" of data, allowing the Spark 4.1 engine to autonomously handle orchestration, state management, and performance optimization.
 
 ---
 
-## 🏗️ Technical Architecture
+## Technical Architecture
 The project follows a **Medallion (Multi-Hop) Architecture**, ensuring data quality and governance at every stage:
 
 * **Bronze (Ingestion):** Raw JSON events are ingested from Azure Data Lake Storage (ADLS) using **Auto Loader**. Malformed data is caught via a `_rescued_data` column for schema evolution.
@@ -20,7 +20,7 @@ The project follows a **Medallion (Multi-Hop) Architecture**, ensuring data qual
 
 ---
 
-## 🌟 Key Features & 2025 Standards
+## Key Features & 2025 Standards
 
 ### 1. Declarative Engineering (`@dp` API)
 By using the **Spark 4.1 `pyspark.pipelines`** library, the code focuses on *what* the data should look like rather than *how* to move it. 
@@ -36,7 +36,7 @@ The entire environment is managed via **Databricks Asset Bundles (DABs)**, allow
 
 ---
 
-## 📂 Repository Structure
+## Repository Structure
 
 | File / Folder | Description |
 | :--- | :--- |
@@ -49,7 +49,7 @@ The entire environment is managed via **Databricks Asset Bundles (DABs)**, allow
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 * Databricks CLI (v0.218+)
@@ -73,7 +73,7 @@ The entire environment is managed via **Databricks Asset Bundles (DABs)**, allow
 
 ---
 
-## 🛠️ Skills Demonstrated
+## Skills Demonstrated
 * **Languages:** Python (PySpark), SQL, YAML.
 * **Data Architecture:** Medallion Architecture, SCD Type 2, Fact/Dimension Modeling.
 * **DevOps:** Infrastructure as Code (DABs), CI/CD (GitHub Actions).
