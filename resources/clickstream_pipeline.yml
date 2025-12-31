@@ -3,8 +3,8 @@
 
 resources:
   pipelines:
+    # DATA ASSET: Defines the Medallion architecture and transformation logic.
     clickstream_pipeline:
-      # Environment-specific naming convention managed by the bundle target
       name: "[dev] Clickstream Pipeline"
 
       # RELEASE CHANNEL:
@@ -13,30 +13,41 @@ resources:
       channel: current
 
       # EXECUTION STRATEGY: 
-      # Continuous mode enables real-time ingestion with lower latency 
-      # than traditional batch-triggered intervals.
+      # Continuous mode enables real-time ingestion with lower latency.
       continuous: true 
 
       # COMPUTE ARCHITECTURE:
-      # Fully managed serverless compute eliminates the need for 
-      # manual instance selection and cluster configuration.
+      # Fully managed serverless compute eliminates manual cluster configuration.
       serverless: true
 
       # DATA GOVERNANCE:
-      # Targets Unity Catalog for centralized lineage, auditing, and fine-grained access control.
+      # Targets Unity Catalog for centralized lineage and RBAC.
       catalog: ${var.catalog}
       target: ${var.schema}
 
       # LOGIC ENCAPSULATION:
       # Pointer to the Spark Declarative Pipeline (SDP) transformation logic.
-      # Path is relative to this resource definition file.
       libraries:
         - file:
             path: ../src/my_transformation.py
 
       # RUNTIME CONFIGURATION:
-      # Injecting environment variables into the Spark Session.
-      # Used in Python/SQL via spark.conf.get("pipeline.landing_path")
       configuration:
-        # Source location for Auto Loader to monitor for new JSON/Parquet events
+        # Source location for Auto Loader to monitor for new JSON events.
         pipeline.landing_path: ${var.landing_path}
+
+  # ORCHESTRATION LAYER:
+  # The Manager ensures the pipeline stays running and handles self-healing.
+  jobs:
+    clickstream_pipeline_manager:
+      name: "[dev] Clickstream Pipeline Manager"
+
+      tasks:
+        - task_key: run_and_monitor_pipeline
+
+          # RETRY LOGIC (Task Level):
+          # Retries this task up to 3 times if it fails due to transient issues.
+          max_retries: 3
+
+          pipeline_task:
+            pipeline_id: ${resources.pipelines.clickstream_pipeline.id}
