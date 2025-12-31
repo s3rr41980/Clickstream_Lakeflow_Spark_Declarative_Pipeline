@@ -11,6 +11,7 @@
 A **production-style, real-time Lakeflow Spark Declarative Pipeline** for ingesting and processing high-velocity clickstream data on Azure Databricks.
 
 This project intentionally applies **best practices and key features captured during Databricks certification**, translating them into a **declarative, serverless, and resilient pipeline** aligned with the **June 2025 GA Lakeflow syntax**.  
+
 The design prioritises **clarity, correctness, cost efficiency, and operational simplicity**, shifting from procedural ETL toward a **desired-state data engineering model**.
 
 ---
