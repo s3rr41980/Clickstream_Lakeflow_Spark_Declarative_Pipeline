@@ -1,5 +1,7 @@
 # 🚀 Lakeflow Clickstream Pipeline: Declarative Data Engineering
 
+![Overall Project Architecture](images_and_videos/Overall%20project%20image.png)
+
 ![Databricks](https://img.shields.io/badge/Platform-Databricks-orange.svg)
 ![Spark](https://img.shields.io/badge/Framework-Apache_Spark-red.svg)
 ![Lakeflow](https://img.shields.io/badge/Engine-Lakeflow_Declarative-blue.svg)
